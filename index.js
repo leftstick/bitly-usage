@@ -1,8 +1,8 @@
 'use strict';
 
-var inquirer = require('inquirer');
+var Question = require('./libs/Question');
 
-inquirer.prompt([
+new Question([
     {
         type: 'list',
         name: 'oper',
@@ -12,6 +12,8 @@ inquirer.prompt([
             'Expand'
         ]
     }
-], function(answers) {
-    require('./' + answers.oper)();
-});
+])
+    .ask()
+    .then(function(answers) {
+        require('./' + answers.oper)();
+    });
