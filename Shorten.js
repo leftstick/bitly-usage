@@ -16,20 +16,19 @@ var Shorten = function() {
         .ask()
         .then(function(answers) {
             var Bitly = require('./libs/Bitly');
-
-            new Bitly('f6d8b8c4fac30062943ced3d7fff1798e97494ae')
-                .shorten(answers.longUrl)
-                .then(function(data) {
-                    var printer = new (require('./libs/Printer'))();
-                    printer.push('Long URL', data.long_url);
-                    printer.push('Short URL', data.url);
-                    printer.push('Hash', data.hash);
-                    printer.push('Global Hash', data.global_hash);
-                    printer.print();
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+            return new Bitly('f6d8b8c4fac30062943ced3d7fff1798e97494ae')
+                .shorten(answers.longUrl);
+        })
+        .then(function(data) {
+            var printer = new (require('./libs/Printer'))();
+            printer.push('Long URL', data.long_url);
+            printer.push('Short URL', data.url);
+            printer.push('Hash', data.hash);
+            printer.push('Global Hash', data.global_hash);
+            printer.print();
+        })
+        .catch(function(error) {
+            console.log(error);
         });
 
 };

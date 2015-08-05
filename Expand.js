@@ -25,20 +25,19 @@ var Expand = function() {
         .then(function(answers) {
 
             var Bitly = require('./libs/Bitly');
+            return new Bitly('f6d8b8c4fac30062943ced3d7fff1798e97494ae')
+                .expand(answers.shortUrl, answers.hash);
+        })
+        .then(function(data) {
 
-            new Bitly('f6d8b8c4fac30062943ced3d7fff1798e97494ae')
-                .expand(answers.shortUrl, answers.hash)
-                .then(function(data) {
+            var printer = new (require('./libs/Printer'))();
+            printer.push('Long URL', data.long_url);
+            printer.push('Short URL', data.short_url);
+            printer.push('Hash', data.hash);
+            printer.push('Global Hash', data.global_hash);
+            printer.push('User Hash', data.user_hash);
+            printer.print();
 
-                    var printer = new (require('./libs/Printer'))();
-                    printer.push('Long URL', data.long_url);
-                    printer.push('Short URL', data.short_url);
-                    printer.push('Hash', data.hash);
-                    printer.push('Global Hash', data.global_hash);
-                    printer.push('User Hash', data.user_hash);
-                    printer.print();
-
-                });
         });
 
 };
