@@ -14,6 +14,13 @@ Bitly.prototype.expand = function(shortUrl, hash) {
     var _this = this;
     return new Promise(function(resolve, reject) {
 
+        if (!_this.access_token) {
+            process.nextTick(function() {
+                reject(new Error('access_token has to be set'));
+            });
+            return;
+        }
+
         request.get({
             url: 'https://api-ssl.bitly.com/v3/expand',
             qs: {
@@ -42,6 +49,13 @@ Bitly.prototype.expand = function(shortUrl, hash) {
 Bitly.prototype.shorten = function(longUrl) {
     var _this = this;
     return new Promise(function(resolve, reject) {
+
+        if (!_this.access_token) {
+            process.nextTick(function() {
+                reject(new Error('access_token has to be set'));
+            });
+            return;
+        }
 
         request.get({
             url: 'https://api-ssl.bitly.com/v3/shorten',

@@ -9,7 +9,8 @@ var Expand = function() {
             name: 'shortUrl',
             message: 'Please type a short url: ',
             validate: function(shortUrl) {
-                return shortUrl ? true : 'Error short url';
+                var urlRex = /^((http|ftp|https|file):\/\/([\w\-]+\.)+[\w\-]+(\/[\w\u4e00-\u9fa5\-\.\/?\@\%\!\&=\+\~\:\#\;\,]*)?)/;
+                return urlRex.test(shortUrl) ? true : 'Error short url';
             }
         },
         {
@@ -38,6 +39,9 @@ var Expand = function() {
             printer.push('User Hash', data.user_hash);
             printer.print();
 
+        })
+        .catch(function(error) {
+            console.log(error);
         });
 
 };
