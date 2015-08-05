@@ -35,6 +35,7 @@ describe('Bitly', function() {
             .catch(function(err) {
                 assert(!!err);
                 done();
+
             });
     });
 
